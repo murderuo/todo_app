@@ -1,0 +1,60 @@
+{% extends "todo_app\\base.html" %}
+
+{% block title %}
+ANASAYFA
+
+{% endblock title %}
+{% block content %}
+<div class="jumbotron jumbotron-fluid"><center>
+      <div class="container">
+        <h1 class="display-4">To - do  <br>uygulamasına hoş geldiniz</h1>
+        <p class="lead">Bu uygulama ile yapılacak işlerinizi organize etmek daha da kolay olacak</p>
+        <br>
+        <a href="{% url 'create'  %}" role="button" class="btn btn-outline-success btn-lg">Yeni To-do oluştur</button></a>
+
+      </center></div>
+    </div>
+
+
+    <div class="container"><table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Todo ado</th>
+            <th scope="col">bitti mi</th>
+            <th scope="col">zaman</th>
+            <th scope="col">delete</th>
+            <th scope="col">update</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for todo in todo_list  %}
+        {%if todo.finished %}
+         <tr>
+            <td><del>{{todo.title}}</del></td>
+            <td><a href="{% url 'yes_finish' todo.id  %}" role="button" class="btn btn-success"></button>Yes</a></td>
+            <td>{{todo.date}}</td>
+            <td><a href="{% url 'delete' todo.id  %}" role="button" class="btn btn-danger">Delete</button></a></td>                          
+            <td><a href="{% url 'update' todo.id  %}" role="button" class="btn btn-success">Güncelle</a></td>
+          </tr>
+        {%else%}
+        <tr>
+          <td>{{todo.title}}</td>
+          <td><a href="{% url 'no_finish' todo.id  %}" role="button" class="btn btn-danger"></button>No</a></td>
+          <td>{{todo.date}}</td>
+          <td><a href="{% url 'delete' todo.id  %}" role="button" class="btn btn-danger">Delete</button></a></td>                          
+          <td><a href="{% url 'update' todo.id  %}" role="button" class="btn btn-success">Güncelle</a></td>
+        </tr>
+        {%endif%}
+        {% endfor %}        
+        </tbody>
+      </table></div>
+  
+  
+  
+ 
+
+{% endblock content %}
+
+
+
+
